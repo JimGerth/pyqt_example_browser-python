@@ -14,7 +14,7 @@ class AddressBar(QPlainTextEdit):
             else:
                 print(f'loading {self.toPlainText()}...')
         else:
-            super().keyPressEvent(e
+            super().keyPressEvent(e)
 
 
 app = QApplication([])
