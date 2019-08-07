@@ -6,14 +6,15 @@ import re
 
 class AddressBar(QPlainTextEdit):
     def keyPressEvent(self, e):
-        super().keyPressEvent(e)
         if e.key() == 0x01000004:
             print('enter pressed')
-            is_url = re.match('https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', self.toPlainText()[0:-1])
+            is_url = re.match('https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', self.toPlainText())
             if not is_url:
                 print('enter a valid url!')
             else:
-                print(f'loading {self.toPlainText()[0:-1]}...')
+                print(f'loading {self.toPlainText()}...')
+        else:
+            super().keyPressEvent(e
 
 
 app = QApplication([])
