@@ -24,6 +24,8 @@ class Browser(QWidget):
         layout.addWidget(self._back_button)
         layout.addWidget(self._load_button)
         layout.addWidget(self._search_bar)
+        layout.setSpacing(5)
+        layout.setContentsMargins(10, 10, 10, 10)
         self._menu_bar.setLayout(layout)
 
     def _init_web_view(self):
@@ -33,6 +35,8 @@ class Browser(QWidget):
         layout = QVBoxLayout()
         layout.addWidget(self._web_view)
         layout.addWidget(self._menu_bar)
+        layout.setSpacing(0)
+        layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
 
 
