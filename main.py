@@ -10,11 +10,22 @@ web_view.setUrl(QUrl('https://www.google.com'))
 
 window = QWidget()
 
-layout = QVBoxLayout()
-layout.addWidget(web_view)
-layout.addWidget(QTextEdit())
+button_view = QWidget()
 
-window.setLayout(layout)
+v_layout = QVBoxLayout()
+v_layout.addWidget(web_view)
+
+h_layout = QHBoxLayout()
+
+h_layout.addWidget(QPushButton(text="back"))
+h_layout.addWidget(QPushButton(text="load"))
+h_layout.addWidget(QPlainTextEdit("address"))
+
+button_view.setLayout(h_layout)
+
+v_layout.addWidget(button_view)
+
+window.setLayout(v_layout)
 window.show()
 
 app.exec_()
