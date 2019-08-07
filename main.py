@@ -4,7 +4,39 @@ from PyQt5.QtCore import QUrl
 import re
 
 
-class AddressBar(QLineEdit):
+class Browser(QWidget):
+
+    def __init__(self):
+        super().__init__()
+
+        self._web_view = QWebEngineView()
+        self._menu_bar = QWidget()
+        self._back_button = QPushButton(text="back")
+        self._load_button = QPushButton(text="load")
+        self._search_bar = SearchBar('enter search or address')
+
+        self._init_menu_bar()
+        self._init_web_view()
+        self._init_self()
+
+    def _init_menu_bar(self):
+        layout = QHBoxLayout()
+        layout.addWidget(self._back_button)
+        layout.addWidget(self._load_button)
+        layout.addWidget(self._search_bar)
+        self._menu_bar.setLayout(layout)
+
+    def _init_web_view(self):
+        pass
+
+    def _init_self(self):
+        layout = QVBoxLayout()
+        layout.addWidget(self._web_view)
+        layout.addWidget(self._menu_bar)
+        self.setLayout(layout)
+
+
+class SearchBar(QLineEdit):
     def keyPressEvent(self, e):
         super().keyPressEvent(e)
         if e.key() == 0x01000004:
@@ -17,30 +49,7 @@ class AddressBar(QLineEdit):
 
 app = QApplication([])
 
-web_view = QWebEngineView()
-web_view.setUrl(QUrl('https://www.google.com'))
-
-window = QWidget()
-
-button_view = QWidget()
-
-v_layout = QVBoxLayout()
-v_layout.addWidget(web_view)
-
-h_layout = QHBoxLayout()
-
-h_layout.addWidget(QPushButton(text="back"))
-h_layout.addWidget(QPushButton(text="load"))
-
-address_bar = AddressBar("address")
-
-h_layout.addWidget(address_bar)
-
-button_view.setLayout(h_layout)
-
-v_layout.addWidget(button_view)
-
-window.setLayout(v_layout)
-window.show()
+browser = Browser()
+browser.show()
 
 app.exec_()
