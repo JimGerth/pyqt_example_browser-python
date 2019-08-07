@@ -11,8 +11,13 @@ class Browser(QWidget):
 
         self._web_view = QWebEngineView()
         self._menu_bar = QWidget()
+
         self._back_button = QPushButton(text="back")
+        self._back_button.clicked.connect(self._back_button_clicked)
+
         self._load_button = QPushButton(text="load")
+        self._load_button.clicked.connect(self._load_button_clicked)
+
         self._search_bar = SearchBar('enter search or address')
         self._search_bar.set_parent_browser(self)
 
@@ -44,3 +49,9 @@ class Browser(QWidget):
         self._web_view.setUrl(QUrl(search))
         if not self._web_view.url(): # check if web view recognized the url as valid
             self._web_view.setUrl(QUrl('https://www.google.com/search?q' + search))
+
+    def _back_button_clicked(self):
+        self._web_view.back()
+
+    def _load_button_clicked(self):
+        self.request_search(self._search_bar.text())
