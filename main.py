@@ -4,18 +4,16 @@ from PyQt5.QtCore import QUrl
 import re
 
 
-class AddressBar(QPlainTextEdit):
+class AddressBar(QLineEdit):
     def keyPressEvent(self, e):
+        super().keyPressEvent(e)
         if e.key() == 0x01000004:
             print('enter pressed')
-            is_url = re.match('https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', self.toPlainText())
+            is_url = re.match('https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', self.text())
             if not is_url:
                 print('enter a valid url!')
             else:
-                print(f'loading {self.toPlainText()}...')
-        else:
-            super().keyPressEvent(e)
-
+                print(f'loading {self.text()}...')
 
 app = QApplication([])
 
