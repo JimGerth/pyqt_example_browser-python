@@ -13,6 +13,7 @@ class Browser(QWidget):
         self._back_button = QPushButton(text="back")
         self._load_button = QPushButton(text="load")
         self._search_bar = SearchBar('enter search or address')
+        self._search_bar.set_parent_browser(self)
 
         self._init_menu_bar()
         self._init_web_view()
@@ -37,3 +38,6 @@ class Browser(QWidget):
         layout.setSpacing(0)
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
+
+    def request_search(self, search):
+        print('browser recieved search request and passes it into web view: \n{}'.format(search))
