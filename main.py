@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtCore import QUrl
+import re
 
 
 class AddressBar(QPlainTextEdit):
@@ -8,6 +9,11 @@ class AddressBar(QPlainTextEdit):
         super().keyPressEvent(e)
         if e.key() == 0x01000004:
             print('enter pressed')
+            is_url = re.match('https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', self.toPlainText()[0:-1])
+            if not is_url:
+                print('enter a valid url!')
+            else:
+                print(f'loading {self.toPlainText()[0:-1]}...')
 
 
 app = QApplication([])
