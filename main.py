@@ -3,6 +3,13 @@ from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtCore import QUrl
 
 
+class AddressBar(QPlainTextEdit):
+    def keyPressEvent(self, e):
+        super().keyPressEvent(e)
+        if e.key() == 0x01000004:
+            print('enter pressed')
+
+
 app = QApplication([])
 
 web_view = QWebEngineView()
@@ -19,7 +26,10 @@ h_layout = QHBoxLayout()
 
 h_layout.addWidget(QPushButton(text="back"))
 h_layout.addWidget(QPushButton(text="load"))
-h_layout.addWidget(QPlainTextEdit("address"))
+
+address_bar = AddressBar("address")
+
+h_layout.addWidget(address_bar)
 
 button_view.setLayout(h_layout)
 
