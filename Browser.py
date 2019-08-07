@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt5.QtCore import QUrl
 from SearchBar import SearchBar
 
 
@@ -40,4 +41,6 @@ class Browser(QWidget):
         self.setLayout(layout)
 
     def request_search(self, search):
-        print('browser recieved search request and passes it into web view: \n{}'.format(search))
+        self._web_view.setUrl(QUrl(search))
+        if not self._web_view.url(): # check if web view recognized the url as valid
+            self._web_view.setUrl(QUrl('https://www.google.com/search?q' + search))
