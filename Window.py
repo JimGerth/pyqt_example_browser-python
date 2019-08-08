@@ -8,6 +8,7 @@ class Window(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setCentralWidget(Browser())
+        self.setWindowTitle('Browser')
         self._setup_actions()
         self._setup_menu_bar()
 
