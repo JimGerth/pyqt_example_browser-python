@@ -21,11 +21,12 @@ class Browser(QWidget):
         self._search_text_field.returnPressed.connect(self._load)
 
 
-        self._init_menu_bar()
-        self._init_web_view()
-        self._init_self()
+        self._setup_menu_bar()
+        self._setup_web_view()
+        self._setup_actions()
+        self._setup_self()
 
-    def _init_menu_bar(self):
+    def _setup_menu_bar(self):
         layout = QHBoxLayout()
         layout.addWidget(self._back_button)
         layout.addWidget(self._load_button)
@@ -34,16 +35,21 @@ class Browser(QWidget):
         layout.setContentsMargins(10, 10, 10, 10)
         self._search_bar.setLayout(layout)
 
-    def _init_web_view(self):
+    def _setup_web_view(self):
         pass
 
-    def _init_self(self):
+    def _setup_self(self):
         layout = QVBoxLayout()
         layout.addWidget(self._web_view)
         layout.addWidget(self._search_bar)
         layout.setSpacing(0)
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
+
+    def _setup_actions(self):
+        printAction = QAction('print')
+        printAction.setShortcut('Ctrl+P')
+        printAction.triggered.connect(self._print)
 
     def _load(self):
         self._web_view.load(QUrl(self._search_text_field.text()))
@@ -52,3 +58,6 @@ class Browser(QWidget):
 
     def _back(self):
         self._web_view.back()
+
+    def _print(self):
+        print('printing...')
