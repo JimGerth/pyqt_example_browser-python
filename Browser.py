@@ -46,9 +46,9 @@ class Browser(QWidget):
         self.setLayout(layout)
 
     def request_search(self, search):
-        self._web_view.setUrl(QUrl(search))
-        if not self._web_view.url(): # check if web view recognized the url as valid
-            self._web_view.setUrl(QUrl('https://www.google.com/search?q' + search))
+        self._web_view.load(QUrl(search))
+        if not self._web_view.url().url(): # check if web view recognized the url as valid
+            self._web_view.load(QUrl('https://www.google.com/search?q=' + search))
 
     def _back_button_clicked(self):
         self._web_view.back()
