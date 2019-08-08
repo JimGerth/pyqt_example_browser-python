@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtCore import QUrl
-from SearchBar import SearchBar
 
 
 class Browser(QWidget):
@@ -13,13 +12,14 @@ class Browser(QWidget):
         self._menu_bar = QWidget()
 
         self._back_button = QPushButton(text="back")
-        self._back_button.clicked.connect(self._back_button_clicked)
+        self._back_button.clicked.connect(self._back)
 
         self._load_button = QPushButton(text="load")
-        self._load_button.clicked.connect(self._load_button_clicked)
+        self._load_button.clicked.connect(self._load)
 
-        self._search_bar = SearchBar('enter search or address')
-        self._search_bar.set_parent_browser(self)
+        self._search_bar = QLineEdit('enter search or address')
+        self._search_bar.returnPressed.connect(self._load)
+
 
         self._init_menu_bar()
         self._init_web_view()
@@ -45,13 +45,10 @@ class Browser(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
 
-    def request_search(self, search):
-        self._web_view.load(QUrl(search))
+    def _load(self):
+        self._web_view.load(QUrl(self._search_bar.text()))
         if not self._web_view.url().url(): # check if web view recognized the url as valid
-            self._web_view.load(QUrl('https://www.google.com/search?q=' + search))
+            self._web_view.load(QUrl('https://www.google.com/search?q=' + self._search_bar.text()))
 
-    def _back_button_clicked(self):
+    def _back(self):
         self._web_view.back()
-
-    def _load_button_clicked(self):
-        self.request_search(self._search_bar.text())
