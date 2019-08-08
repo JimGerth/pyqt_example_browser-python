@@ -20,11 +20,11 @@ class Browser(QWidget):
         self._search_text_field = QLineEdit('enter search or address')
         self._search_text_field.returnPressed.connect(self._load)
 
-        self._setup_menu_bar()
+        self._setup_search_bar()
         self._setup_web_view()
         self._setup_self()
 
-    def _setup_menu_bar(self):
+    def _setup_search_bar(self):
         layout = QHBoxLayout()
         layout.addWidget(self._back_button)
         layout.addWidget(self._load_button)
@@ -34,7 +34,7 @@ class Browser(QWidget):
         self._search_bar.setLayout(layout)
 
     def _setup_web_view(self):
-        pass
+        self._web_view.urlChanged.connect(self._update_search_text_field)
 
     def _setup_self(self):
         layout = QVBoxLayout()
@@ -51,3 +51,6 @@ class Browser(QWidget):
 
     def _back(self):
         self._web_view.back()
+
+    def _update_search_text_field(self):
+        self._search_text_field.setText(self._web_view.url().url())
