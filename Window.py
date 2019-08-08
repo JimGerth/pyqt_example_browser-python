@@ -16,10 +16,20 @@ class Window(QMainWindow):
         self._print_action.setShortcut('Ctrl+P')
         self._print_action.triggered.connect(self._print)
 
+        self._about_action = QAction('About')
+        self._about_action.triggered.connect(self._about)
+
     def _setup_menu_bar(self):
         self._menu_bar = self.menuBar()
+
         self._file_menu = self._menu_bar.addMenu('File')
         self._file_menu.addAction(self._print_action)
 
+        self._help_menu = self._menu_bar.addMenu('Help')
+        self._help_menu.addAction(self._about_action)
+
     def _print(self):
         print('printing...')
+
+    def _about(self):
+        print('made by Jim Gerth')
