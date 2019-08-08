@@ -31,6 +31,7 @@ class Window(QMainWindow):
 
     def _print(self):
         print('printing...')
+        self.centralWidget().grab().save('image.png')
 
     def _about(self):
         print('made by Jim Gerth')
