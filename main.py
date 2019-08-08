@@ -1,10 +1,10 @@
 from PyQt5.QtWidgets import *
-from Browser import Browser
+from Window import Window
 
 
 app = QApplication([])
 
-browser = Browser()
-browser.show()
+window = Window()
+window.show()
 
 app.exec_()
